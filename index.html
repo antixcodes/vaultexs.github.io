@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vaultexs Exchange — Coming Soon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://samarth.codes/logo.png" type="image/png" />
+
+  <!-- Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-accent: #020617;
+      --card: rgba(15, 23, 42, 0.9);
+      --border: rgba(148, 163, 184, 0.35);
+      --primary: #22c55e;
+      --primary-soft: rgba(34, 197, 94, 0.16);
+      --primary-ring: rgba(34, 197, 94, 0.35);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 55%),
+        radial-gradient(circle at bottom, rgba(34, 197, 94, 0.18), transparent 55%),
+        radial-gradient(circle at top right, rgba(129, 140, 248, 0.24), transparent 55%),
+        var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .card-shell {
+      position: relative;
+      max-width: 460px;
+      width: 100%;
+    }
+
+    .card-glow {
+      position: absolute;
+      inset: -1px;
+      border-radius: 28px;
+      background: conic-gradient(
+        from 160deg,
+        rgba(34, 197, 94, 0.2),
+        rgba(59, 130, 246, 0.25),
+        rgba(129, 140, 248, 0.25),
+        rgba(34, 197, 94, 0.2)
+      );
+      opacity: 0.45;
+      filter: blur(24px);
+      z-index: -1;
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(
+        145deg,
+        rgba(15, 23, 42, 0.94),
+        rgba(15, 23, 42, 0.96)
+      );
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      padding: 28px 26px 22px;
+      box-shadow:
+        0 18px 60px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.4);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.08), transparent 55%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.28);
+      border: 1px solid rgba(45, 212, 191, 0.4);
+      color: #a5f3fc;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.28);
+    }
+
+    .status-pill {
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #22c55e 0, #16a34a 40%, #22c55e 80%);
+      box-shadow:
+        0 0 0 1px rgba(22, 163, 74, 0.6),
+        0 12px 26px rgba(22, 163, 74, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #022c22;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e5e7eb;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin: 10px 0 4px;
+      letter-spacing: -0.03em;
+    }
+
+    .accent {
+      color: var(--primary);
+    }
+
+    .subheadline {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .chip {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .chip-label {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .chip-value {
+      font-size: 12px;
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    input {
+      flex: 1;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+      color: var(--text);
+      outline: none;
+      font-size: 13px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, transform 0.08s ease;
+    }
+
+    input::placeholder {
+      color: #64748b;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary-ring), 0 0 0 12px rgba(15, 23, 42, 0.9);
+      transform: translateY(-0.5px);
+    }
+
+    button {
+      padding: 11px 18px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #022c22;
+      font-weight: 600;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      box-shadow:
+        0 12px 26px rgba(22, 163, 74, 0.7),
+        0 0 0 1px rgba(21, 128, 61, 0.5);
+      transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        filter 0.12s ease;
+    }
+
+    button span.icon {
+      font-size: 14px;
+      transform: translateY(1px);
+    }
+
+    button:hover {
+      transform: translateY(-1px) scale(1.01);
+      filter: brightness(1.05);
+      box-shadow:
+        0 16px 34px rgba(21, 128, 61, 0.85),
+        0 0 0 1px rgba(21, 128, 61, 0.7);
+    }
+
+    button:active {
+      transform: translateY(0) scale(0.99);
+      box-shadow:
+        0 8px 18px rgba(21, 128, 61, 0.7),
+        0 0 0 1px rgba(21, 128, 61, 0.7);
+    }
+
+    .helper {
+      font-size: 11px;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .helper span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .helper-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: #6b7280;
+      border-top: 1px solid rgba(30, 41, 59, 0.95);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .copyright {
+      opacity: 0.9;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 10px;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .footer-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .notify-status {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid;
+    backdrop-filter: blur(10px);
+    }
+
+    .notify-success {
+    display: flex;
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.45);
+    background: rgba(34, 197, 94, 0.14);
+    }
+
+    .notify-error {
+    display: flex;
+    color: #fca5a5;
+    border-color: rgba(248, 113, 113, 0.45);
+    background: rgba(248, 113, 113, 0.14);
+    }
+
+    @media (max-width: 520px) {
+      .card {
+        padding: 22px 18px 18px;
+        border-radius: 20px;
+      }
+
+      .card-glow {
+        border-radius: 22px;
+        filter: blur(20px);
+      }
+
+      .pill-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .stats {
+        flex-direction: column;
+      }
+
+      .input-group {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card-shell">
+    <div class="card-glow"></div>
+
+    <div class="card">
+      <div class="card-inner">
+        <div class="pill-row">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Launching Soon...</span>
+          </div>
+          <div class="status-pill">
+            www.vaultexs.com
+          </div>
+        </div>
+
+        <div class="brand">
+        <img 
+            src="https://samarth.codes/logo.png" 
+            alt="Vaultexs Exchange Logo"
+            class="logo"
+        />
+        <div class="brand-text">
+            <div class="brand-title">Vaultexs Exchanges</div>
+            <div class="brand-sub">Secure. Instant. Low fees.</div>
+        </div>
+        </div>
+
+        <h1>
+          Trade <span class="accent">USDT</span> with next‑gen execution.
+        </h1>
+        <div class="subheadline">Be first in line when the exchange goes live.</div>
+
+        <p>
+          A fast, secure and low‑fee USDT venue built for serious traders.
+          Get early access, beta invites and launch‑day incentives delivered straight to your inbox.
+        </p>
+
+        <div class="stats">
+          <div class="chip">
+            <span class="chip-label">Network coverage</span>
+            <span class="chip-value">TRC20 · ERC20 · BEP20</span>
+          </div>
+          <div class="chip">
+            <span class="chip-label">Target fees</span>
+            <span class="chip-value">&lt; 0.05% per trade</span>
+          </div>
+        </div>
+        <div class="input-group">
+        <input type="email" id="email" placeholder="Enter your best email to get notified" />
+        <button id="notifyBtn" onclick="subscribe()">
+            <span>Notify me</span>
+            <span class="icon">→</span>
+        </button>
+        </div>
+
+        <div id="notify-status" class="notify-status"></div>
+
+
+        <footer>
+          <span class="copyright">
+            © 2025 Vaultexs Exchanges
+          </span>
+          <div class="footer-links">
+            <span class="footer-pill">support@vaultexs.com</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <script>
+    async function subscribe() {
+        const emailInput = document.getElementById("email");
+        const status = document.getElementById("notify-status");
+        const button = document.getElementById("notifyBtn");
+        const email = emailInput.value.trim();
+
+        status.style.display = "none";
+
+        if (!email) {
+        showStatus("Please enter an email address.", false);
+        return;
+        }
+
+        button.disabled = true;
+        button.innerHTML = "Submitting…";
+
+        try {
+        const res = await fetch("/subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            showStatus("✅ You're on the early access list!", true);
+            emailInput.value = "";
+        } else {
+            showStatus(data.message, false);
+        }
+        } catch {
+        showStatus("Server error. Please try again later.", false);
+        } finally {
+        button.disabled = false;
+        button.innerHTML = `<span>Notify me</span><span class="icon">→</span>`;
+        }
+    }
+
+    function showStatus(message, success) {
+        const status = document.getElementById("notify-status");
+        status.textContent = message;
+        status.className = "notify-status " + (success ? "notify-success" : "notify-error");
+        status.style.display = "flex";
+    }
+  </script>
+</body>
+</html>
